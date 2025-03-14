@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35828.75 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTree", "RTree.csproj", "{14A66B05-07E9-4FA6-8ECB-48FBC1A7C556}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTree", "src\RTree.csproj", "{A1F4839E-9EE0-F1AA-CC9B-E69CC3E992E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{14A66B05-07E9-4FA6-8ECB-48FBC1A7C556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14A66B05-07E9-4FA6-8ECB-48FBC1A7C556}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14A66B05-07E9-4FA6-8ECB-48FBC1A7C556}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14A66B05-07E9-4FA6-8ECB-48FBC1A7C556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F4839E-9EE0-F1AA-CC9B-E69CC3E992E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F4839E-9EE0-F1AA-CC9B-E69CC3E992E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F4839E-9EE0-F1AA-CC9B-E69CC3E992E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F4839E-9EE0-F1AA-CC9B-E69CC3E992E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
