@@ -1,6 +1,6 @@
 ﻿namespace RTree.Interfaces;
 
-public interface IBinaryTree<T> where T : IComparable<T>
+public interface IBinaryTree<T> : IEnumerable<T> where T : IComparable<T>
 {
     void Insert(T value);
     bool Contains(T value);

@@ -1,4 +1,5 @@
 ﻿using RTree.Interfaces;
+using System.Collections;
 
 namespace RTree.Implementations;
 
@@ -124,5 +125,15 @@ internal class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
             yield return value;
 
         yield return node.Value;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        return TraverseInOrder().GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
