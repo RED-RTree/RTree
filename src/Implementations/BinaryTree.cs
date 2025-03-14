@@ -27,28 +27,56 @@ internal class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
         return node;
     }
 
-    public bool Contains(T value)
+    public bool Contains(T value) => ContainsRec(_root, value);
+
+    private bool ContainsRec(Node? node, T value)
     {
-        throw new NotImplementedException();
+        if (node == null)
+            return false;
+
+        if (value.CompareTo(node.Value) == 0)
+            return true;
+
+        return value.CompareTo(node.Value) < 0
+            ? ContainsRec(node.Left, value)
+            : ContainsRec(node.Right, value);
     }
 
-    public void Delete(T value)
+    public void Delete(T value) => _root = DeleteRec(_root, value);
+
+    private Node? DeleteRec(Node? node, T value)
     {
-        throw new NotImplementedException();
+        if (node == null)
+            return null;
+
+        if (value.CompareTo(node.Value) < 0)
+            node.Left = DeleteRec(node.Left, value);
+        else if (value.CompareTo(node.Value) > 0)
+            node.Right = DeleteRec(node.Right, value);
+        else
+        {
+            if (node.Left == null)
+                return node.Right;
+            if (node.Right == null)
+                return node.Left;
+
+            node.Value = MinValue(node.Right);
+            node.Right = DeleteRec(node.Right, node.Value);
+        }
+
+        return node;
     }
 
-    public IEnumerable<T> TraverseInOrder()
+    private T MinValue(Node node)
     {
-        throw new NotImplementedException();
+        T minValue = node.Value;
+        while (node.Left != null)
+        {
+            minValue = node.Left.Value;
+            node = node.Left;
+        }
+        return minValue;
     }
 
-    public IEnumerable<T> TraversePreOrder()
-    {
-        throw new NotImplementedException();
-    }
 
-    public IEnumerable<T> TraversePostOrder()
-    {
-        throw new NotImplementedException();
-    }
-}
+
