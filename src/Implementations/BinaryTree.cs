@@ -78,5 +78,51 @@ internal class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
         return minValue;
     }
 
+    public IEnumerable<T> TraverseInOrder() => TraverseInOrderRec(_root);
 
+    private IEnumerable<T> TraverseInOrderRec(Node? node)
+    {
+        if (node == null)
+            yield break;
 
+        foreach (var value in TraverseInOrderRec(node.Left))
+            yield return value;
+
+        yield return node.Value;
+
+        foreach (var value in TraverseInOrderRec(node.Right))
+            yield return value;
+    }
+
+    public IEnumerable<T> TraversePreOrder() => TraversePreOrderRec(_root);
+
+    private IEnumerable<T> TraversePreOrderRec(Node? node)
+    {
+        if (node == null)
+            yield break;
+
+        yield return node.Value;
+
+        foreach (var value in TraversePreOrderRec(node.Left))
+            yield return value;
+
+        foreach (var value in TraversePreOrderRec(node.Right))
+            yield return value;
+    }
+
+    public IEnumerable<T> TraversePostOrder() => TraversePostOrderRec(_root);
+
+    private IEnumerable<T> TraversePostOrderRec(Node? node)
+    {
+        if (node == null)
+            yield break;
+
+        foreach (var value in TraversePostOrderRec(node.Left))
+            yield return value;
+
+        foreach (var value in TraversePostOrderRec(node.Right))
+            yield return value;
+
+        yield return node.Value;
+    }
+}
