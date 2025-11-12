@@ -1,18 +1,19 @@
 ﻿using RTree.Interfaces;
+using RTree.Literals;
 using System.Collections;
 
 namespace RTree.Implementations;
 
-internal class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
+internal class BinaryTree<T>(DuplicateHandling _duplicateHandling = DuplicateHandling.None) : IBinaryTree<T> where T : IComparable<T>
 {
     private class Node(T value)
     {
         public T Value { get; set; } = value;
         public Node? Left { get; set; }
         public Node? Right { get; set; }
+        public int Count { get; set; } = 1;
     }
     private Node? _root;
-
     public void Insert(T value) => _root = InsertRec(_root, value);
 
     private Node InsertRec(Node? node, T value)
@@ -20,10 +21,33 @@ internal class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
         if (node == null)
             return new Node(value);
 
-        if (value.CompareTo(node.Value) < 0)
-            node.Left = InsertRec(node.Left, value);
-        else if (value.CompareTo(node.Value) > 0)
-            node.Right = InsertRec(node.Right, value);
+        int comparison = value.CompareTo(node.Value);
+
+        switch (_duplicateHandling)
+        {
+            case DuplicateHandling.None:
+                if (comparison < 0)
+                    node.Left = InsertRec(node.Left, value);
+                else if (comparison > 0)
+                    node.Right = InsertRec(node.Right, value);
+                break;
+
+            case DuplicateHandling.Allow:
+                if (comparison < 0)
+                    node.Left = InsertRec(node.Left, value);
+                else
+                    node.Right = InsertRec(node.Right, value);
+                break;
+
+            case DuplicateHandling.Count:
+                if (comparison < 0)
+                    node.Left = InsertRec(node.Left, value);
+                else if (comparison > 0)
+                    node.Right = InsertRec(node.Right, value);
+                else
+                    node.Count++;
+                break;
+        }
 
         return node;
     }
@@ -89,10 +113,12 @@ internal class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
         foreach (var value in TraverseInOrderRec(node.Left))
             yield return value;
 
-        yield return node.Value;
+        for (int i = 0; i < (_duplicateHandling == DuplicateHandling.Count ? node.Count : 1); i++)
+            yield return node.Value;
 
         foreach (var value in TraverseInOrderRec(node.Right))
             yield return value;
+
     }
 
     public IEnumerable<T> TraversePreOrder() => TraversePreOrderRec(_root);
