@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace RTree.Implementations;
 
-internal class BinaryTree<T>(DuplicateHandling _duplicateHandling = DuplicateHandling.None) : IBinaryTree<T> where T : IComparable<T>
+public class BinaryTree<T>(DuplicateHandling _duplicateHandling = DuplicateHandling.None) : IBinaryTree<T> where T : IComparable<T>
 {
     private class Node(T value)
     {
@@ -95,6 +95,7 @@ internal class BinaryTree<T>(DuplicateHandling _duplicateHandling = DuplicateHan
                 return node.Left;
 
             node.Value = MinValue(node.Right);
+            //Future fix: if the successor node has count > 1, its count should be decremented instead of being completely removed (currently, only the counter is decremented).
             node.Right = DeleteRec(node.Right, node.Value);
         }
 
