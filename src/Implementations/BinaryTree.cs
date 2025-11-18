@@ -74,12 +74,21 @@ internal class BinaryTree<T>(DuplicateHandling _duplicateHandling = DuplicateHan
         if (node == null)
             return null;
 
-        if (value.CompareTo(node.Value) < 0)
+        int comparison = value.CompareTo(node.Value);
+
+        if (comparison < 0)
             node.Left = DeleteRec(node.Left, value);
-        else if (value.CompareTo(node.Value) > 0)
+        else if (comparison > 0)
             node.Right = DeleteRec(node.Right, value);
         else
         {
+            if (_duplicateHandling == DuplicateHandling.Count)
+            {
+                node.Count--;
+                if (node.Count > 0)
+                    return node;
+            }
+
             if (node.Left == null)
                 return node.Right;
             if (node.Right == null)
